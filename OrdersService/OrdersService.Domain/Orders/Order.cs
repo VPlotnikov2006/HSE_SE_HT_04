@@ -18,6 +18,6 @@ public class Order(Guid userId)
     {
         var item = new OrderItem(OrderId, product.ProductId, quantity, product.Price);
         _items.Add(item);
-        TotalPrice += item.PriceOnOrder;
+        TotalPrice += item.PriceOnOrder * item.Quantity;
     }
 }
