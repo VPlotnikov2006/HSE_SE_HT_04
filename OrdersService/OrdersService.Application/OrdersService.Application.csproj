@@ -10,6 +10,7 @@
     <Folder Include="DTOs\" />
     <Folder Include="DTOs\CreateOrder\" />
     <Folder Include="DTOs\GetOrder\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
