@@ -3,9 +3,9 @@ using OrdersService.Application.DTOs;
 using OrdersService.Application.DTOs.GetOrder;
 using OrdersService.Application.Interfaces.Repositories;
 using OrdersService.Domain.Orders;
-using OrdersService.Infrastructure.DbContexts;
+using OrdersService.Infrastructure.Persistence.DbContexts;
 
-namespace OrdersService.Infrastructure.Repositories;
+namespace OrdersService.Infrastructure.Persistence.Repositories;
 
 public class OrderRepository(OrdersDbContext db) : IOrderRepository
 {

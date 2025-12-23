@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace OrdersService.Infrastructure.DbContexts;
+namespace OrdersService.Infrastructure.Persistence.DbContexts;
 
 public class OrdersDbContextFactory : IDesignTimeDbContextFactory<OrdersDbContext>
 {

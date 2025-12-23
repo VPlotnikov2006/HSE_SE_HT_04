@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using OrdersService.Domain.Orders;
 using OrdersService.Domain.Products;
 using OrdersService.Application.Outbox;
-using OrdersService.Infrastructure.DbContexts.EntityConfigurations;
+using OrdersService.Infrastructure.Persistence.DbContexts.EntityConfigurations;
 
-namespace OrdersService.Infrastructure.DbContexts;
+namespace OrdersService.Infrastructure.Persistence.DbContexts;
 
 public class OrdersDbContext : DbContext
 {

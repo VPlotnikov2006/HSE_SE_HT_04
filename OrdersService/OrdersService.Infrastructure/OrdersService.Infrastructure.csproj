@@ -7,10 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DbContexts\" />
-    <Folder Include="DbContexts\EntityConfigurations\" />
     <Folder Include="Outbox\" />
-    <Folder Include="Repositories\" />
+    <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

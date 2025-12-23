@@ -1,7 +1,7 @@
 using OrdersService.Application.Interfaces.Repositories;
-using OrdersService.Infrastructure.DbContexts;
+using OrdersService.Infrastructure.Persistence.DbContexts;
 
-namespace OrdersService.Infrastructure.Repositories;
+namespace OrdersService.Infrastructure.Persistence.UnitOfWork;
 
 public class UnitOfWork(OrdersDbContext db) : IUnitOfWork
 {

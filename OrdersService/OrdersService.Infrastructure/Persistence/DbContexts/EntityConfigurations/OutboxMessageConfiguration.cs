@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OrdersService.Application.Outbox;
 
-namespace OrdersService.Infrastructure.DbContexts.EntityConfigurations;
+namespace OrdersService.Infrastructure.Persistence.DbContexts.EntityConfigurations;
 
 public class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>
 {

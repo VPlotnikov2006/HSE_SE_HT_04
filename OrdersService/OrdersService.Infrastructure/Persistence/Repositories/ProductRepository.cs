@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using OrdersService.Application.Interfaces.Repositories;
 using OrdersService.Domain.Products;
-using OrdersService.Infrastructure.DbContexts;
+using OrdersService.Infrastructure.Persistence.DbContexts;
 
-namespace OrdersService.Infrastructure.Repositories;
+namespace OrdersService.Infrastructure.Persistence.Repositories;
 
 public class ProductRepository(OrdersDbContext db) : IProductRepository
 {
