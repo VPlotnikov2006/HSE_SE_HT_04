@@ -1,6 +1,6 @@
 namespace OrdersService.Application.DTOs.CreateOrder;
 
-public record CreateOrderCommandDto(
+public record CreateOrderCommand(
     Guid UserId,
-    List<CreateOrderItemDto> Items
+    List<CreateOrderItem> Items
 );

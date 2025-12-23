@@ -1,4 +1,4 @@
-namespace OrdersService.Application.Interfaces;
+namespace OrdersService.Application.Interfaces.Repositories;
 
 public interface IUnitOfWork
 {

@@ -7,10 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="DTOs\CreateOrder\" />
     <Folder Include="DTOs\GetOrder\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\Repositories\" />
+    <Folder Include="UseCases\" />
+    <Folder Include="UseCases\CreateOrder\" />
+    <Folder Include="UseCases\GetOrder\" />
+    <Folder Include="UseCases\ListOrders\" />
+    <Folder Include="UseCases\UpdateOrderStatus\" />
   </ItemGroup>
 
   <ItemGroup>
