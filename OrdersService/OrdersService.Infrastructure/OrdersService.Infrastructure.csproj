@@ -10,6 +10,7 @@
     <Folder Include="DbContexts\" />
     <Folder Include="DbContexts\EntityConfigurations\" />
     <Folder Include="Outbox\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
