@@ -1,6 +1,6 @@
 namespace OrdersService.Application.DTOs;
 
-public record UpdateOrderStatusDto(
+public record UpdateOrderStatusCommand(
     Guid OrderId,
     string NewStatus,
     DateTime CreatedAt

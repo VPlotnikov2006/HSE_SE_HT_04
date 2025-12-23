@@ -3,9 +3,9 @@ using OrdersService.Application.Interfaces.Messaging;
 using OrdersService.Application.Interfaces.Repositories;
 using OrdersService.Application.Outbox;
 
-namespace OrdersService.Infrastructure.Outbox;
+namespace OrdersService.Infrastructure.Daemons;
 
-public class OutboxPublisher(
+public class OutboxPublisherDaemon(
     IOutboxRepository outbox,
     IMessageProducer producer,
     IUnitOfWork uow
