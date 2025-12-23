@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="DTOs\GetOrder\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\Messaging\" />
     <Folder Include="Interfaces\Repositories\" />
     <Folder Include="UseCases\" />
     <Folder Include="UseCases\CreateOrder\" />

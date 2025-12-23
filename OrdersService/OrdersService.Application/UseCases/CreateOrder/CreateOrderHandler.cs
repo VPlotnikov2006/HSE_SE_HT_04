@@ -1,4 +1,4 @@
-using OrdersService.Application.DTOs;
+using OrdersService.Application.Outbox;
 using OrdersService.Application.DTOs.CreateOrder;
 using OrdersService.Application.Interfaces.Repositories;
 using OrdersService.Domain.Exceptions;
@@ -7,9 +7,9 @@ using OrdersService.Domain.Orders;
 namespace OrdersService.Application.UseCases.CreateOrder;
 
 public class CreateOrderHandler(
-    IOrderRepository orders, 
-    IProductRepository products, 
-    IOutboxRepository outbox, 
+    IOrderRepository orders,
+    IProductRepository products,
+    IOutboxRepository outbox,
     IUnitOfWork uow
 )
 {
@@ -38,10 +38,10 @@ public class CreateOrderHandler(
         await _orders.AddAsync(order, ct);
         await _outbox.AddAsync(
             new OutboxMessageDto(
-                order.OrderId, 
-                order.UserId, 
+                order.OrderId,
+                order.UserId,
                 order.TotalPrice
-            ), 
+            ),
             ct
         );
         await _uow.CommitAsync(ct);

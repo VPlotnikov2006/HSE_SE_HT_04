@@ -1,4 +1,4 @@
-namespace OrdersService.Application.DTOs;
+namespace OrdersService.Application.Outbox;
 
 public record class OutboxMessageDto(
     Guid OrderId,
