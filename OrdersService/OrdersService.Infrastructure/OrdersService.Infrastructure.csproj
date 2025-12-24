@@ -11,6 +11,7 @@
     <Folder Include="Messaging\" />
     <Folder Include="Messaging\Kafka\" />
     <Folder Include="Daemons\" />
+    <Folder Include="Persistence\DbContexts\Seed\" />
     <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 

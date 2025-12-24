@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OrdersService.Domain.Products;
+using OrdersService.Infrastructure.Persistence.DbContexts.Seed;
 
 namespace OrdersService.Infrastructure.Persistence.DbContexts.EntityConfigurations;
 
@@ -24,5 +25,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.Property(p => p.Weight)
                .IsRequired();
+        
+        builder.HasData(ProductSeed.Data);
     }
 }
