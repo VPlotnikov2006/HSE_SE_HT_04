@@ -4,6 +4,8 @@
 ## Get latest from `dotnet new gitignore`
 
 tree.py
+kafka-data/*
+postgres-data/*
 
 # dotenv files
 .env
