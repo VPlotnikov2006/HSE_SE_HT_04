@@ -14,15 +14,15 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 
         builder.Property(o => o.UserId).IsRequired();
         builder.Property(o => o.TotalPrice).IsRequired();
-        builder.Property(o => o.Status).IsRequired();
+        builder.Property(o => o.Status).HasConversion<string>().IsRequired();
         builder.Property(o => o.CreatedAt).IsRequired();
 
-        builder.HasMany(typeof(OrderItem), "_items")
+        builder.HasMany(o => o.Items)
             .WithOne()
             .HasForeignKey("OrderId")
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.Navigation("_items")
+        builder.Navigation(nameof(Order.Items))
             .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }

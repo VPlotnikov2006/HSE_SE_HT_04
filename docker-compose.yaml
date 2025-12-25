@@ -1,0 +1,86 @@
+version: "3.9"
+
+services:
+  orders-service:
+    build:
+      context: ./OrdersService
+      dockerfile: Dockerfile
+    container_name: orders-service
+    ports:
+      - "8081:80"
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:80
+      ASPNETCORE_ENVIRONMENT: Development
+      APPLY_MIGRATIONS: true
+
+      ConnectionStrings__OrdersDb: "Host=postgres;Port=5432;Database=orders;Username=orders_user;Password=orders_pwd"
+      Kafka__BootstrapServers: "kafka:9092"
+      # Kafka__IncomingTopic: "payment-status"
+      # Kafka__OutgoingTopic: "payment-requests"
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - app-net
+
+  postgres:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    networks:
+      - app-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.8.0
+    container_name: kafka
+    hostname: kafka
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+
+      CLUSTER_ID: "kafka-cluster-1"
+      KAFKA_BROKER_ID: 1
+
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_NUM_PARTITIONS: 3
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    networks:
+      - app-net
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    restart: always
+    depends_on:
+      - kafka
+    ports:
+      - "8080:8080"
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
+volumes:
+  kafka-data:

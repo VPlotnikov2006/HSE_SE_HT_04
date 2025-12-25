@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OrdersService.Application.Interfaces.Messaging;
 using OrdersService.Application.Interfaces.Repositories;
@@ -5,16 +6,12 @@ using OrdersService.Application.Outbox;
 
 namespace OrdersService.Infrastructure.Daemons;
 
-public class OutboxPublisherDaemon(
-    IOutboxRepository outbox,
-    IMessageProducer producer,
-    IUnitOfWork uow
-    ) : BackgroundService
+public class OutboxPublisherDaemon(IServiceScopeFactory scopeFactory, IMessageProducer producer) : BackgroundService
 {
 
-    private readonly IOutboxRepository _outbox = outbox;
+    private readonly IServiceScopeFactory _scopeFactory = scopeFactory;
     private readonly IMessageProducer _producer = producer;
-    private readonly IUnitOfWork _uow = uow;
+    // private readonly IUnitOfWork _uow = uow;
 
     private readonly TimeSpan _pollInterval = TimeSpan.FromSeconds(2);
     private const int BatchSize = 50;
@@ -24,9 +21,12 @@ public class OutboxPublisherDaemon(
 
         while (!ct.IsCancellationRequested)
         {
+            using var scope = _scopeFactory.CreateScope();
+            var outbox = scope.ServiceProvider.GetRequiredService<IOutboxRepository>();
+            var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
             try
             {
-                var messages = await _outbox.GetUnpublishedAsync(BatchSize, ct);
+                var messages = await outbox.GetUnpublishedAsync(BatchSize, ct);
 
                 if (messages.Count == 0)
                 {
@@ -58,7 +58,7 @@ public class OutboxPublisherDaemon(
                     }
                 }
 
-                await _uow.CommitAsync(ct);
+                await uow.CommitAsync(ct);
             }
             catch (OperationCanceledException)
             {

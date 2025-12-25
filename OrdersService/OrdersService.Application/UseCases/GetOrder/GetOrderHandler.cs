@@ -1,5 +1,5 @@
 using OrdersService.Application.DTOs.GetOrder;
-using OrdersService.Application.Interfaces;
+using OrdersService.Application.Interfaces.Repositories;
 using OrdersService.Domain.Exceptions;
 
 namespace OrdersService.Application.UseCases.GetOrder;

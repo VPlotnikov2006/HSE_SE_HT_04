@@ -33,6 +33,8 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IOutboxRepository, OutboxRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+        services.Configure<KafkaOptions>(configuration.GetSection("Kafka"));
+
         services.AddSingleton<IMessageProducer, KafkaMessageProducer>();
         services.AddSingleton<IMessageConsumer, KafkaMessageConsumer>();
 

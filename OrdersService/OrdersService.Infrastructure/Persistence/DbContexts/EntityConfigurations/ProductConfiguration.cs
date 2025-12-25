@@ -17,7 +17,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
                .IsRequired()
                .HasMaxLength(255);
 
-        builder.Property(p => p.Category)
+        builder.Property(p => p.Category).HasConversion<string>()
                .IsRequired();
 
         builder.Property(p => p.Price)

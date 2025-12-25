@@ -12,7 +12,7 @@ public class Order(Guid userId)
     public OrderStatus Status { get; set; } = OrderStatus.New;
 
     private readonly List<OrderItem> _items = [];
-    public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
+    public IReadOnlyCollection<OrderItem> Items => _items;
 
     public void Add(Product product, uint quantity)
     {
