@@ -10,6 +10,7 @@
     <Folder Include="Daemons\" />
     <Folder Include="DependencyInjection\" />
     <Folder Include="Messaging\" />
+    <Folder Include="Messaging\Kafka\" />
     <Folder Include="Persistence\" />
     <Folder Include="Persistence\DbContexts\" />
     <Folder Include="Persistence\DbContexts\EntityConfigurations\" />
@@ -18,8 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Confluent.Kafka" Version="2.11.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.11" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 
