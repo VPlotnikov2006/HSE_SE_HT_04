@@ -46,4 +46,8 @@
 - Gateway: http://localhost:8080/swagger
 - Payments Service: http://localhost:8082/swagger
 - Orders Service: http://localhost:8081/swagger
-- Kafka ui: http://localhost:8090/swagger
+- Kafka ui: http://localhost:8090
+- UI: http://localhost:8083
+  
+## UI
+Старался успеть. Не получилось
