@@ -2,19 +2,29 @@ using PaymentsService.Application.Enums;
 
 namespace PaymentsService.Application.Outbox;
 
-public class OutboxMessage(Guid orderId, WithdrawResult result)
+public class OutboxMessage
 {
-    public Guid OrderId { get; private set; } = orderId;
-    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
-    public string NewStatus { get; private set; } = result switch
-    {
-        WithdrawResult.Success => "Finished",
-        WithdrawResult.Fail => "Cancelled",
-        _ => throw new NotImplementedException()
-    };
+    protected OutboxMessage() { }
 
-    public bool Published { get; private set; } = false;
-    public DateTime? PublishedAt { get; private set; } = null;
+    public OutboxMessage(Guid orderId, WithdrawResult result)
+    {
+        OrderId = orderId;
+        CreatedAt = DateTime.UtcNow;
+        NewStatus = result switch
+        {
+            WithdrawResult.Success => "Finished",
+            WithdrawResult.Fail => "Cancelled",
+            _ => throw new NotImplementedException()
+        };
+        Published = false;
+        PublishedAt = null;
+    }
+
+    public Guid OrderId { get; private set; }
+    public DateTime CreatedAt { get; private set; }
+    public string NewStatus { get; private set; }
+    public bool Published { get; private set; }
+    public DateTime? PublishedAt { get; private set; }
 
     public void Publish()
     {
@@ -24,6 +34,6 @@ public class OutboxMessage(Guid orderId, WithdrawResult result)
 
     public OutboxMessageDto AsDto()
     {
-        return new (OrderId, NewStatus, CreatedAt);
+        return new( OrderId, NewStatus, CreatedAt );
     }
 }

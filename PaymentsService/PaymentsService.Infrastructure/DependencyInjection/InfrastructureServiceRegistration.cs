@@ -35,6 +35,7 @@ public static class InfrastructureServiceRegistration
         services.AddSingleton<IMessageConsumer, KafkaMessageConsumer>();
 
         services.AddScoped<IOutboxRepository, OutboxRepository>();
+        services.AddScoped<IInboxRepository, InboxRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IAccountRepository, AccountRepository>();
 

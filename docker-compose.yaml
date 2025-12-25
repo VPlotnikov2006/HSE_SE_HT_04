@@ -23,6 +23,28 @@ services:
     networks:
       - app-net
 
+  payments-service:
+    build:
+      context: ./PaymentsService
+      dockerfile: Dockerfile
+    container_name: payments-service
+    ports:
+      - "8082:80"
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:80
+      ASPNETCORE_ENVIRONMENT: Development
+      APPLY_MIGRATIONS: true
+
+      ConnectionStrings__PaymentsDb: "Host=postgres;Port=5432;Database=payments;Username=pay_user;Password=pay_pwd"
+      Kafka__BootstrapServers: "kafka:9092"
+      # Kafka__IncomingTopic: "payment-status"
+      # Kafka__OutgoingTopic: "payment-requests"
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - app-net
+
   postgres:
     image: postgres:16
     restart: always

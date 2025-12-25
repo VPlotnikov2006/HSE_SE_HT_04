@@ -6,7 +6,7 @@ using OrdersService.Infrastructure.Persistence.DbContexts.EntityConfigurations;
 
 namespace OrdersService.Infrastructure.Persistence.DbContexts;
 
-public class OrdersDbContext(DbContextOptions<OrdersDbContext> options) : DbContext(options), DbContext
+public class OrdersDbContext(DbContextOptions<OrdersDbContext> options) : DbContext(options)
 {
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();

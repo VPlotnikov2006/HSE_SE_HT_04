@@ -9,10 +9,8 @@ public static class ApplicationServiceRegistration
         this IServiceCollection services)
     {
         services.AddScoped<CreateAccountHandler>();
-
         services.AddScoped<DepositHandler>();
         services.AddScoped<GetBalanceHandler>();
-
         services.AddScoped<WithdrawHandler>();
 
         return services;
