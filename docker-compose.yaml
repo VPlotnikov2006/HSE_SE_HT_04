@@ -60,6 +60,18 @@ services:
     networks:
       - app-net
 
+  ui:
+    build:
+      context: ./UI
+      dockerfile: Dockerfile
+    container_name: ui
+    ports:
+      - "8083:80"
+    depends_on:
+      - gateway
+    networks:
+      - app-net
+
   postgres:
     image: postgres:16
     restart: always

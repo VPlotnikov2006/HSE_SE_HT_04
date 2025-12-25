@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Demo UI - Gateway</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Demo Client (Gateway)</h1>
+  </header>
+
+  <main>
+    <div class="left-column">
+      <section class="panel">
+        <h2>User</h2>
+        <label for="userSelect">Choose user:</label>
+        <select id="userSelect"></select>
+      </section>
+
+      <section class="panel">
+        <h2>Payments</h2>
+        <div class="row">
+          <button id="createAccountBtn">Create Account</button>
+          <button id="getBalanceBtn">Get Balance</button>
+        </div>
+        <div class="row">
+          <input id="depositAmount" type="number" step="0.01" placeholder="Amount (positive)" />
+          <button id="depositBtn">Deposit</button>
+        </div>
+        <div id="balanceDisplay" class="output"></div>
+      </section>
+    </div>
+
+    <div class="right-column">
+      <section class="panel">
+        <h2>Orders</h2>
+        <div class="row">
+          <button id="listOrdersBtn">List All Orders</button>
+          <input id="orderIdInput" placeholder="Order ID (guid)" />
+          <button id="getOrderBtn">Get Order</button>
+        </div>
+
+        <h3>Create Order</h3>
+        <div id="products"></div>
+        <div class="row">
+          <button id="createOrderBtn">Create Order</button>
+        </div>
+      </section>
+
+      <section class="panel logs-panel">
+        <h2>Logs</h2>
+        <pre id="log" class="log"></pre>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
