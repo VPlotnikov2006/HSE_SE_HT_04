@@ -6,6 +6,7 @@
 tree.py
 kafka-data/*
 postgres-data/*
+orders_sw.json
 
 # dotenv files
 .env

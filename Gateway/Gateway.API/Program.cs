@@ -8,9 +8,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
-
 app.MapReverseProxy();
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/orders/v1/swagger.json", "Orders API");
+    c.SwaggerEndpoint("/swagger/payments/v1/swagger.json", "Payments API");
+});
 
 app.Run();
