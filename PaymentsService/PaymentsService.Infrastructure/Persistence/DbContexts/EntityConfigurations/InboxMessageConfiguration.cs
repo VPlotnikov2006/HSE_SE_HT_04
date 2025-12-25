@@ -13,7 +13,7 @@ public class InboxMessageConfiguration : IEntityTypeConfiguration<InboxMessage>
         builder.HasKey(x => x.OrderId);
 
         builder.Property(x => x.CreatedAt)
-            .HasColumnType("timestamp")
+            .HasColumnType("timestamp with time zone")
             .IsRequired();
     }
 }

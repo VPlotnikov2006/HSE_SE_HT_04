@@ -28,7 +28,7 @@ namespace PaymentsService.Infrastructure.Migrations
                 columns: table => new
                 {
                     OrderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,10 +40,10 @@ namespace PaymentsService.Infrastructure.Migrations
                 columns: table => new
                 {
                     OrderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     NewStatus = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
                     Published = table.Column<bool>(type: "boolean", nullable: false),
-                    PublishedAt = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    PublishedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

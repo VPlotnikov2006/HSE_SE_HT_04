@@ -23,8 +23,35 @@ public sealed class KafkaMessageConsumer : IMessageConsumer, IDisposable
             EnableAutoCommit = false
         };
 
-        _consumer = new ConsumerBuilder<string, string>(config).Build();
-        _consumer.Subscribe(_options.OrdersOutboxTopic);
+        // Retry connecting/subscribing to Kafka to tolerate broker startup delays
+        const int maxAttempts = 30;
+        var attempt = 0;
+        Exception? lastEx = null;
+
+        while (attempt < maxAttempts)
+        {
+            try
+            {
+                _consumer = new ConsumerBuilder<string, string>(config).Build();
+                _consumer.Subscribe(_options.OrdersOutboxTopic);
+                Console.WriteLine($"[KafkaConsumer] connected and subscribed to '{_options.OrdersOutboxTopic}' (attempt {attempt + 1})");
+                lastEx = null;
+                break;
+            }
+            catch (Exception ex)
+            {
+                lastEx = ex;
+                attempt++;
+                Console.WriteLine($"[KafkaConsumer] connection attempt {attempt} failed: {ex.Message}. Retrying in 1s...");
+                try { Thread.Sleep(1000); } catch { }
+            }
+        }
+
+        if (lastEx != null)
+        {
+            Console.WriteLine($"[KafkaConsumer] failed to connect to Kafka after {maxAttempts} attempts: {lastEx.Message}");
+            throw lastEx;
+        }
     }
 
     public async Task ConsumeAsync(
@@ -64,8 +91,15 @@ public sealed class KafkaMessageConsumer : IMessageConsumer, IDisposable
 
     public void Dispose()
     {
-        _consumer.Close();
-        _consumer.Dispose();
+        try
+        {
+            _consumer?.Close();
+            _consumer?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[KafkaConsumer] Dispose error: {ex.Message}");
+        }
     }
 
     private record OrdersOutboxMessageDto(

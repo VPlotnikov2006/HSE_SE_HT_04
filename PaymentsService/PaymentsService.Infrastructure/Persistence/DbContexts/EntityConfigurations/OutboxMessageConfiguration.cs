@@ -20,9 +20,9 @@ public class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage
             .IsRequired();
 
         builder.Property(x => x.CreatedAt)
-            .HasColumnType("timestamp");
+            .HasColumnType("timestamp with time zone");
 
         builder.Property(x => x.PublishedAt)
-            .HasColumnType("timestamp");
+            .HasColumnType("timestamp with time zone");
     }
 }

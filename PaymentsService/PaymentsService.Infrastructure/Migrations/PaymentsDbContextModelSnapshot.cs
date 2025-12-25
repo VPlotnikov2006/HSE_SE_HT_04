@@ -29,7 +29,7 @@ namespace PaymentsService.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("OrderId");
 
@@ -43,7 +43,7 @@ namespace PaymentsService.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NewStatus")
                         .IsRequired()
@@ -54,7 +54,7 @@ namespace PaymentsService.Infrastructure.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime?>("PublishedAt")
-                        .HasColumnType("timestamp");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("OrderId");
 
