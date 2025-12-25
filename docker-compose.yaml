@@ -44,6 +44,21 @@ services:
       - kafka
     networks:
       - app-net
+  
+  gateway:
+    build:
+      context: ./Gateway
+      dockerfile: Dockerfile
+    container_name: gateway
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:80
+    ports:
+      - "8080:80"
+    depends_on:
+      - orders-service
+      - payments-service
+    networks:
+      - app-net
 
   postgres:
     image: postgres:16
@@ -94,7 +109,7 @@ services:
     depends_on:
       - kafka
     ports:
-      - "8080:8080"
+      - "8090:8080"
     environment:
       - KAFKA_CLUSTERS_0_NAME=local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
