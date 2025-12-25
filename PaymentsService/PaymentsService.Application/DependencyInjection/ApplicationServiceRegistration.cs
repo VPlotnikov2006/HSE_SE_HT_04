@@ -5,7 +5,7 @@ namespace PaymentsService.Application.DependencyInjection;
 
 public static class ApplicationServiceRegistration
 {
-    public static IServiceCollection AddOrdersApplication(
+    public static IServiceCollection AddPaymentsApplication(
         this IServiceCollection services)
     {
         services.AddScoped<CreateAccountHandler>();

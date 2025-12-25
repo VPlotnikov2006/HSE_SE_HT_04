@@ -1,41 +1,54 @@
+using Microsoft.EntityFrameworkCore;
+using PaymentsService.Api.Middleware;
+using PaymentsService.Application.DependencyInjection;
+using PaymentsService.Infrastructure.Daemons;
+using PaymentsService.Infrastructure.DependencyInjection;
+using PaymentsService.Infrastructure.Persistence.DbContexts;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddPaymentsInfrastructure(builder.Configuration);
+builder.Services.AddPaymentsApplication();
+
+builder.Services.AddHostedService<OutboxPublisherDaemon>();
+builder.Services.AddHostedService<OrdersOutboxConsumerDaemon>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Apply migrations only when explicitly requested (prevents host-side DNS failures
+// when the connection string points to a Docker service name like "postgres").
+var applyMigrations = Environment.GetEnvironmentVariable("APPLY_MIGRATIONS") == "true";
+if (applyMigrations)
 {
-    app.MapOpenApi();
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<PaymentsDbContext>();
+    try
+    {
+        db.Database.Migrate();
+        Console.WriteLine("[MIGRATE] applied migrations successfully.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[MIGRATE ERROR] {ex.GetType().Name}: {ex.Message}");
+    }
+}
+else
+{
+    Console.WriteLine("[MIGRATE] skipped (set APPLY_MIGRATIONS=true to enable)");
 }
 
-app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
+app.MapControllers();
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
