@@ -21,7 +21,7 @@ public sealed class KafkaMessageConsumer : IMessageConsumer, IDisposable
             AutoOffsetReset = AutoOffsetReset.Earliest,
             EnableAutoCommit = false
         };
-        Console.WriteLine($"[DEBUG]: {config.BootstrapServers} | {config.GroupId}");
+        // Console.WriteLine($"[DEBUG]: {config.BootstrapServers} | {config.GroupId}");
         _consumer = new ConsumerBuilder<string, string>(config).Build();
         _consumer.Subscribe(cfg.PaymentStatusTopic);
     }

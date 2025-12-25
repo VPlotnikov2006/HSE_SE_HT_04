@@ -26,7 +26,7 @@ public class WithdrawHandler(
             throw new WrongDeltaSignException(command.BalanceDelta, '-');
         }
 
-        if (! await _inbox.TryAddAsync(orderId, ct))
+        if (! await _inbox.TryAddAsync(new(orderId), ct))
         {
             return;
         }

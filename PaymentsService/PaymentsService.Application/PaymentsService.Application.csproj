@@ -10,6 +10,7 @@
     <Folder Include="DependencyInjection\" />
     <Folder Include="DTOs\" />
     <Folder Include="Enums\" />
+    <Folder Include="Inbox\" />
     <Folder Include="Interfaces\Messaging\" />
     <Folder Include="Outbox\" />
   </ItemGroup>

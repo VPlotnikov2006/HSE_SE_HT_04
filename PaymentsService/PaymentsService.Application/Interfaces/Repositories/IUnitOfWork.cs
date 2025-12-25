@@ -1,5 +1,3 @@
-using System;
-
 namespace PaymentsService.Application.Interfaces.Repositories;
 
 public interface IUnitOfWork

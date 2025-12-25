@@ -1,6 +1,8 @@
-namespace PaymentsService.Application.Interfaces;
+using PaymentsService.Application.Inbox;
+
+namespace PaymentsService.Application.Interfaces.Repositories;
 
 public interface IInboxRepository
 {
-    Task<bool> TryAddAsync(Guid OrderId, CancellationToken ct);
+    Task<bool> TryAddAsync(InboxMessage message, CancellationToken ct);
 }

@@ -6,4 +6,26 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Daemons\" />
+    <Folder Include="DependencyInjection\" />
+    <Folder Include="Messaging\" />
+    <Folder Include="Persistence\" />
+    <Folder Include="Persistence\DbContexts\" />
+    <Folder Include="Persistence\DbContexts\EntityConfigurations\" />
+    <Folder Include="Persistence\Repositories\" />
+    <Folder Include="Persistence\UnitOfWork\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.11" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PaymentsService.Application\PaymentsService.Application.csproj" />
+    <ProjectReference Include="..\PaymentsService.Domain\PaymentsService.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
